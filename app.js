@@ -19,6 +19,8 @@ models.db.authenticate().then(() => {
   console.log('connected to the database');
 });
 
+app.use('/users', userRouter);
+
 app.use('/wiki', wikiRouter);
 
 app.get('/', (req, res, next) => {
@@ -26,7 +28,7 @@ app.get('/', (req, res, next) => {
 });
 
 const init = async () => {
-  await models.db.sync({ force: true });
+  await models.db.sync();
 
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {
